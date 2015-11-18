@@ -1,0 +1,17 @@
+{% extends "templates/researcher_template.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<div class="container" id="rateit-func-operator-home" style="">
+    <legend><h2>GTFS Management</h2></legend>
+    
+    <form action="{{ upload_url|safe }}" method="POST" enctype="multipart/form-data">
+        <p>Do not upload the 'full' Transport NSW gtfs file as this will use up the 
+        free datastore quota and likely fail on loading into app engine.  You will need
+        to create a digest of the TNSW gtfs file using the filter_gtfs.sh script.</p>
+        
+        <p>Upload GTFS Zip File: <input type="file" name="gtfs_file"><br>
+        <input type="submit" name="submit" value="Submit"> 
+    </form>
+
+</div>
+{% endblock %}

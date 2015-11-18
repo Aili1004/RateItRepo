@@ -1,0 +1,462 @@
+{% extends "templates/template.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+
+<style type="text/css" xml:space="preserve">
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:14px; color:#660000;}
+</style>
+<style>
+#slider label {
+    position: absolute;
+    width: 80px;
+    margin-left: -30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* below is not necessary, just for style */
+#slider {
+    width: 70%;
+    margin: 2em auto;
+}
+</style>
+
+<!--<script src="static/flatui/dist/js/vendor/jquery.min.js"></script>-->
+<!--<script src="static/flatui/dist/js/flat-ui.min.js"></script>-->
+
+
+
+<div class="container" id="rateit-func-rate-trip" style="">
+	<h2>Registration</h2>
+    {% if user_id %}
+    <label>You are logged in using your Google Account: {{user_id}}.</label><br>
+    {% endif %}
+
+    {% if is_registered %}
+    <label>You have already registered, you can use all the RateIT functionality.</label><br>
+    {% else %}
+    <label>You need to complete this registration form for using RateIT functionality.</label>
+	<form action="/registration" method="POST" id="registration_form" name="chkform" class="form-horizontal" role="form">
+		<h4>About You</h4>
+        <div class="form-group">
+            <label for="sex" class="col-sm-2 control-label">Sex</label>
+            <div class="col-sm-10">
+                <select id="sex" name="sex" style="width:150px">
+                    <option value=""></option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+        </div>
+
+        <!--<div class="form-group">-->
+	        <!--<label for="sex" class="col-sm-2 control-label">Sex</label>-->
+            <!--<div class="btn-group col-sm-10" data-toggle="buttons">-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" id="sex" name="sex" value="Male">Male-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" id="sex" name="sex" value="Female">Female-->
+                  <!--</label>-->
+            <!--</div>-->
+	    <!--</div>-->
+
+
+
+
+        <div class="form-group">
+            <label for="inputYear" class="col-sm-2 control-label">In which year were you born?</label>
+            <div class="col-sm-10">
+                <select id="inputYear" name="inputYear" style="width:150px">
+                    <option value=""></option>
+                    {% for i in year_list %}
+                        <option value="{{ i }}"> {{ i }}   </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="householdType" class="col-sm-2 control-label">Household type</label>
+            <div class="col-sm-10">
+                <select id="householdType" name="householdType" style="width:250px">
+                    <option value=""></option>
+                    <option value="Couples with children">Couples with children</option>
+                    <option value="Couples without children">Couples without children</option>
+                    <option value="One parent families">One parent families</option>
+                    <option value="Other families">Other families</option>
+                    <option value="Group household">Group household</option>
+                    <option value="Lone person">Lone person</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+			<label for="postcode" class="col-sm-2 control-label">Postcode</label>
+			<div class="col-sm-10">
+                <input type="text" class="form-control" name="postcode" style="width:250px">
+			</div>
+		</div>
+        <!--<div class="form-group">-->
+			<!--<label for="postcode" class="col-sm-2 control-label">Postcode</label>-->
+			<!--<div class="col-sm-10">-->
+                <!--<select id="postcode" name="postcode" style="width:350px">-->
+                    <!--<option value=""></option>-->
+                    <!--{% for i in postcode_list %}-->
+                        <!--<option value="{{ i }}">{{ i }}</option>-->
+                    <!--{% endfor %}-->
+                <!--</select>-->
+			<!--</div>-->
+		<!--</div>-->
+
+        <div class="form-group">
+            <label for="education" class="col-sm-2 control-label">Education</label>
+            <div class="col-sm-10">
+                <select id="education" name="education" style="width:250px">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="occupation" class="col-sm-2 control-label">Occupation</label>
+            <div class="col-sm-10">
+                <select id="occupation" name="occupation" style="width:250px">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="monthly_income" class="col-sm-2 control-label">Monthly Income</label>
+            <div class="col-sm-10">
+                <select id="monthly_income" name="monthly_income" style="width:250px">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="mobility_impairment" class="col-sm-2 control-label">Mobility Impairment</label>
+            <div class="col-sm-10">
+                <select id="mobility_impairment" name="mobility_impairment" style="width:250px">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="devices_type" class="col-sm-2 control-label">Devices Type</label>
+            <div class="col-sm-10">
+                <select id="devices_type" name="devices_type" style="width:250px">
+                    <option value=""></option>
+                    <option value="iPhone">iPhone</option>
+                    <option value="Android phone">Android phone</option>
+                    <option value="iPad with internet access">iPad with internet access</option>
+                    <option value="Tablet with internet access">Tablet with internet access</option>
+                    <option value="Laptop with internet access">Laptop with internet access</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+
+        <!--<div class="form-group">-->
+            <!--<label for="mobile_devices" class="col-sm-2 control-label">Do you regularly use any of these mobile devices while travelling by public transport?</label>-->
+            <!--<div class="btn-group col-sm-10" data-toggle="buttons">-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="mobile_devices" value="1">iPhone-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="mobile_devices" value="2">Android phone-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="mobile_devices" value="3">iPad with internet access-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="mobile_devices" value="4">Tablet with internet access-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="mobile_devices" value="5">Laptop with internet access-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="mobile_devices" value="6">Other-->
+                  <!--</label>-->
+            <!--</div>-->
+	    <!--</div>-->
+
+        <div class="form-group">
+            <label for="drivers_licence" class="col-sm-2 control-label">Drives Licence</label>
+            <div class="col-sm-10">
+                <select id="drivers_licence" name="drivers_licence" style="width:250px">
+                    <option value=""></option>
+                    <option value="Learners">Learners</option>
+                    <option value="Provisional">Provisional</option>
+                    <option value="Full">Full</option>
+                    <option value="None">None</option>
+                </select>
+            </div>
+        </div>
+
+        <!--<div class="form-group">-->
+            <!--<label for="driver_licence" class="col-sm-2 control-label">Do you have one of the following types of drivers licence?</label>-->
+            <!--<div class="btn-group col-sm-10" data-toggle="buttons">-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="driver_licence" value="1">Learners-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="driver_licence" value="2">Provisional-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="driver_licence" value="3">Full-->
+                  <!--</label>-->
+                  <!--<label class="btn btn-default">-->
+                  <!--<input type="radio" name="driver_licence" value="4">None-->
+                  <!--</label>-->
+            <!--</div>-->
+	    <!--</div>-->
+        <div class="form-group">
+            <label for="purpose_to_use" class="col-sm-2 control-label">Purposes to use public transport</label>
+            <div class="col-sm-10">
+                <select id="purpose_to_use" name="purpose_to_use" style="width:250px">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="often_to_use" class="col-sm-2 control-label">How often do you use public transport?</label>
+            <div class="col-sm-10">
+                <select id="often_to_use" name="often_to_use" style="width:250px">
+                    <option value=""></option>
+                    <option value="Rarely">Rarely</option>
+                    <option value="2-3 times/month">2-3 times/month</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="2-3 times/week">2-3 times/week</option>
+                    <option value="Daily">Daily</option>
+                </select>
+            </div>
+		</div>
+        <!--<div class="form-group">-->
+            <!--<label for="often_to_use" class="col-sm-2 control-label">How often do you use public transport?</label>-->
+			<!--<div id="slider" name="often_to_use">-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<h4>Terms and Conditions</h4>
+		<div class="form-group">
+			<div class="container">
+				<textarea rows="10" cols="70" readonly style="max-width:700px; width:100%; resize:none;">
+Terms and conditions here.Terms and conditions here.Terms and conditions here.Terms and conditions here.Terms and conditions here.
+				</textarea>
+				<label class="checkbox" for="checkbox1">
+				<input type="checkbox"  id="checkbox1" name="checkbox1" value="y" data-toggle="checkbox" class="custom-checkbox">
+					<span class="icons" name="checkbox1">
+						<span class="icon-unchecked"  name="checkbox1"></span>
+						<span class="icon-checked" name="checkbox1"></span>
+					</span>
+					I agree to these terms.
+				</label>
+			</div>
+		</div>
+
+        <div id="chkform_errorloc" class="error_strings">
+        </div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<input type="submit" value="Register" name="registration_form_submit">
+			</div>
+		</div>
+
+	</form>
+    <script>
+        // Form Validation
+        var chkformValidator  = new Validator("chkform");
+        // Display validation messages all in one palce
+        chkformValidator.EnableOnPageErrorDisplaySingleBox();
+
+        // Display validation mesages near the field
+
+        //chkformValidator.EnableOnPageErrorDisplay();
+        chkformValidator.EnableMsgsTogether();
+
+
+
+        chkformValidator.addValidation("sex", "req", "Please select sex.");
+        chkformValidator.addValidation("inputYear", "req", "Please select year");
+        chkformValidator.addValidation("householdType", "req", "Please select household type");
+        chkformValidator.addValidation("postcode", "req", "Please enter postcode");
+        chkformValidator.addValidation("postcode","maxlen=4","Postcode should be 4 digits");
+        chkformValidator.addValidation("postcode","minlen=4","Postcode should be 4 digits");
+        chkformValidator.addValidation("postcode","numeric", "Postcode should be 4 digits");
+
+        chkformValidator.addValidation("education", "req", "Please select education");
+        chkformValidator.addValidation("occupation", "req", "Please select occupation");
+        chkformValidator.addValidation("monthly_income", "req", "Please select monthly income");
+        chkformValidator.addValidation("mobility_impairment", "req", "Please select mobility impairment");
+        chkformValidator.addValidation("devices_type", "req", "Please select mobile devices type");
+        chkformValidator.addValidation("drivers_licence", "req", "Please select drivers licence");
+        chkformValidator.addValidation("purpose_to_use", "req", "Please select purpose");
+        chkformValidator.addValidation("often_to_use", "req", "Please select how often to use the public transport");
+        chkformValidator.addValidation("checkbox1", "shouldselchk=y", "You must agree to the terms and conditions for the registration");
+    </script>
+    {% endif %}
+</div>
+<script src="static/flatui/dist/js/flat-ui.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $("#sex").select2({
+           placeholder: "Please select",
+           allowClear: true,
+           maximumSelectionSize: 3
+        });
+    });
+
+    $(document).ready(function () {
+        $("#inputYear").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+
+    $(document).ready(function () {
+        $("#householdType").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+     });
+     /*
+    $(document).ready(function () {
+        $("#postcode").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    */
+    $(document).ready(function () {
+        $("#education").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    $(document).ready(function () {
+        $("#occupation").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    $(document).ready(function () {
+        $("#monthly_income").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    $(document).ready(function () {
+        $("#mobility_impairment").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    $(document).ready(function () {
+        $("#devices_type").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    $(document).ready(function () {
+        $("#drivers_licence").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    $(document).ready(function () {
+        $("#purpose_to_use").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    $(document).ready(function () {
+        $("#often_to_use").select2({
+           placeholder: "Please select",
+           allowClear: true
+        });
+    });
+    $("#slider").slider({
+        value: 2,
+        min: 1,
+        max: 5,
+        step: 1
+    })
+    .each(function() {
+
+      //
+      // Add labels to slider whose values
+      // are specified by min, max and whose
+      // step is set to 1
+      //
+
+      // Get the options for this slider
+      var opt = $(this).data().uiSlider.options;
+
+      // Get the number of possible values
+      var vals = opt.max - opt.min;
+
+      // Space out values
+        $( "#slider" ).append($('<label>Rarely</label>').css('left','0%'));
+        $( "#slider" ).append($('<label>2-3/month</label>').css('left','25%'));
+        $( "#slider" ).append($('<label>Weekly</label>').css('left','50%'));
+        $( "#slider" ).append($('<label>2-3/week</label>').css('left','75%'));
+        $( "#slider" ).append($('<label>Daily</label>').css('left','100%'));
+
+    });
+
+</script>
+<!--<script>-->
+<!--var start = 1900;-->
+<!--var end = new Date().getFullYear();-->
+<!--var options = "";-->
+<!--for(var year = start ; year <=end; year++){-->
+  <!--options += "<option>"+ year +"</option>";-->
+<!--}-->
+<!--document.getElementById("inputYear").innerHTML = options;-->
+<!--</script>-->
+
+
+<!--<script src="static/flatui/dist/js/vendor/jquery.min.js"></script>-->
+
+
+{% endblock %}

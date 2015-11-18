@@ -1,0 +1,18 @@
+Passenger
+1.	As a passenger I should be able to search for aggregate ratings of any service so I know the rating history of the service
+2.	As a passenger I should be able to view the news feed so I can see incident alerts and content from researchers/operators
+3.	As a passenger I should be able to alert/report an incident so the operators are aware of it.
+4.	As a passenger I should be able to rate my trip so I can provide feedback to the operators suggesting improvements.
+5.	As a passenger I want to be able to register an account with RateIT so I can access feedback tools.
+6.	As a passenger I want to be able to securely log into the system so I can access content.
+Researcher
+1.	As a researcher I want to be able to securely log in to the system so I can view content.
+2.	As a researcher I want to be able to push content to passengers which appear in the news feed so I can notify passengers.
+3.	As a researcher I want to be able to view the log of alerts so I can analyse and respond to them.
+4.	As a researcher I want to be able to verify passengers issue as true or false so I can improve data quality.
+5.	As a researcher I want to be able to label a passenger based on a query result so I can select their label for survey questions and notifications.
+6.	As a researcher I want to be able to download raw data from the database in CSV format so I can use offline analysis tools.
+Operator
+1.	As an operator I want to be able to view the log of alerts so that I can analyse and respond to them.
+2.	As an operator I want to view aggregate data as a visualisation and also as a report, so that I can view and compare the current data to the past in two different ways.
+

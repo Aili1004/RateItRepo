@@ -1,0 +1,21 @@
+{% extends extends_template %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<legend><h2>View Questions (Rate Trip)</h2></legend>
+
+<table class="table table-hover">
+	<tr>
+		<th>Question ID</th>
+		<th>Question Name</th>
+		<th>Displayed</th>
+	</tr>
+	{% for entity in entities %}
+	<tr>
+		<td><a href="/researcher/viewquestions/id={{ entity.key.id() }}">{{ entity.key.id() }}</a></td>
+		<td>{{ entity.name }}</td>
+		<td>{{ entity.display }}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}

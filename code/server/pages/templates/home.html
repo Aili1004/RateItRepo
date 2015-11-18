@@ -1,0 +1,78 @@
+{% extends "templates/template.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+
+<div class="container" id="rateit-func-view-newsfeed" style="margin-bottom:50px;">
+	<legend><h2>Newsfeed</h2></legend>
+	
+	<a href="/">Refresh</a>
+
+	<table class="table table-hover" style="padding:20px; border-collapse: collapse;">
+		{% for a in entities %}
+			{% if a.priority %}
+		    <tr class="warning" data-toggle="collapse" data-target="#{{ a.key.id() }}" class="accordion-toggle">
+				<td width="90%">{{ a.title }}</td>
+			{% elif  not a.priority %}
+			<tr data-toggle="collapse" data-target="#{{ a.key.id() }}" class="accordion-toggle">
+				<td width="90%">{{ a.title }}</td>
+			{% endif %}
+
+				<td width="10%" style="text-align:right;">▼</td>
+				
+				<tr >
+					<td colspan="10" class="hiddenRow" style="padding:0px; border-bottom: none;">
+						<div id="{{ a.key.id() }}" class="accordion-body collapse">
+							<b>Type:</b> {{ a.type }}
+							<br><b>Time:</b> testing
+							<br><b>Surveys:</b> <a href="/">1</a>
+							<br><b>Message:</b> {{ a.message }} 
+						</div>
+					</td>
+				</tr>
+		{% endfor %}
+	</table>
+	
+	<h3>My Trip</h3>
+	<div id="bus-message">
+		{% if current_bus %}
+			Your currently selected bus route is {{ current_bus.route_short_name }} {{ current_bus.trip_headsign }} from {{ current_bus.trip_headsign_return }}.
+		{% else %}
+			Please select a bus route.
+		{% endif %}
+	</div>
+	<form action="/" method="POST" id="select_bus" class="form-horizontal" role="form">
+	<script>
+        $(document).ready(function() { 
+			$("#selectbus").select2({
+				placeholder: "Select a bus",
+				allowClear: true
+			});
+		});
+    </script>
+	<p><select name ="selectbus" id="selectbus" onclick="changemessage()">
+		<option></option>
+	    {% for hs in headsigns %}
+            <option value="{{ hs.key.id() }}">{{ hs.route_short_name }} {{ hs.trip_headsign }} from {{ hs.trip_headsign_return }} </option>
+        {% endfor %}
+    </select>
+	<p><button type="submit" class="btn btn-default" name="submit_bus" value="1">Change</button>
+	</form>
+</div>
+
+<div class="footer">
+	<div class="container">
+		<div class="row demo-row">
+			<div class="col-xs-12">
+				<nav class="navbar navbar-inverse navbar-embossed" role="navigation" style="margin-bottom: 0px">
+					<div class="navbar-header">
+						<!-- Change lookuprating to something nice. -->
+						<a class="navbar-brand col-xs-6" href="/ratetrip" id="rateit-button-rate-trip" style="text-align:center">Rate</a>
+						<a class="navbar-brand col-xs-6" href="/alertincident" id="rateit-button-create-alert" style="text-align:center">Alert</a>
+					</div>
+				</nav><!-- /navbar -->
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,162 @@
+{% extends "templates/template.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+
+<script>
+	$(document).ready(function () {
+		$("#alertInputRouteId").select2({
+			allowClear: true
+		});
+	});
+	
+	$(document).ready(function () {
+		$("#alertInputBusStop").select2({
+			allowClear: true
+		});
+	});
+	
+	document.getElementById("alertInputRouteId").onchange = function() {busRouteFunction()};
+	document.getElementById("alertInputBusStop").onchange = function() {busStopFunction()};
+	
+	function busRouteFunction(){
+		var x = document.getElementById("alertInputRouteId");
+	}
+	
+	function busStopFunction(){
+		var x = document.getElementById("alertInputBusStop");
+	}
+	
+	function formcheck(){
+	
+		//if(create_alert_form.alertInputRouteId.selectedIndex == 0){
+			//alert("Please select route ID.");
+			//return false;
+		//}
+		//if(create_alert_form.alertInputBusStop.selectedIndex == 0){
+			//alert("Please select a bus stop.");
+			//return false;
+		//}
+		
+		
+		if((create_alert_form.alertIncidentHappeningTime[0].checked == false) && 
+			(create_alert_form.alertIncidentHappeningTime[1].checked == false) &&
+			(create_alert_form.alertIncidentHappeningTime[2].checked == false) &&
+			(create_alert_form.alertIncidentHappeningTime[3].checked == false)){
+				alert("Please identify when the incident happened.")
+				return false;
+			}
+		
+		if((create_alert_form.alertIncidentType[0].checked == false) && 
+			(create_alert_form.alertIncidentType[1].checked == false) &&
+			(create_alert_form.alertIncidentType[2].checked == false) &&
+			(create_alert_form.alertIncidentType[3].checked == false) &&
+			(create_alert_form.alertIncidentType[4].checked == false)){
+				alert("Please select an incident type.")
+				return false;
+			}	
+		
+		if((create_alert_form.alertInputIncidentLevel[0].checked == false) && 
+			(create_alert_form.alertInputIncidentLevel[1].checked == false) &&
+			(create_alert_form.alertInputIncidentLevel[2].checked == false)){
+				alert("Please select an incident level.")
+				return false;
+			}
+			
+		return true;
+	}
+</script>
+
+<div class="container" id="rateit-func-create-alert" style="">
+	<legend><h2>Alert Incident</h2></legend>
+	<form action="/alertincident" method="POST" id="create_alert_form" class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="alertInputRouteId" class="col-sm-2 control-label">Route Id <font color="red"> * </font></label>
+			<div class="col-sm-10">
+				<select id="alertInputRouteId" onchange="busRouteFunction()" name="alertInputRouteId" style="width:200px">
+					{% for hs in headsigns2 %}
+						<option value="{{ hs.key.id() }}">{{ hs.route_short_name}} {{ hs.trip_headsign }} from {{ hs.trip_headsign_return }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="alertInputBusStop" class="col-sm-2 control-label">Where did the incident happen?<font color="red"> * </font></label>
+			<div class="col-sm-10">
+				<select id="alertInputBusStop" onchange="busStopFunction()" name="alertInputBusStop" style="width:200px">
+				{% for stop in stops %}
+					<option value="{{ stop.key.id() }}">{{ stop.stop_name }}</option>
+				{% endfor %}
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="alertIncidentHappeningTime" class="col-sm-2 control-label">When did the incident happen?<font color="red"> * </font></label>
+			<div class="btn-group" data-toggle="buttons">
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentHappeningTime" value="last ten minutes">Last 10 minutes
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentHappeningTime" value="more than one hour ago">More than 1 hour ago
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentHappeningTime" value="more than two hours ago">More than 2 hours ago
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentHappeningTime" value="more than three hours ago">More than 3 hours ago
+				</label>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="alertIncidentType" class="col-sm-2 control-label">Please select an incident type.<font color="red"> * </font></label>
+			<div class="btn-group" data-toggle="buttons">
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentType" value="traffic_incident">Traffic Incident
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentType" value="sick_passenger">Sick Passenger
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentType" value="anti_social_behaviour_passenger">Anti Social Behaviour Passenger
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentType" value="lost_item">Lost Item
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertIncidentType" value="other">Other
+				</label>
+			</div>
+		</div>
+	  
+		<div class="form-group">
+			<label for="alertInputIncidentLevel" class="col-sm-2 control-label">Please select the incident level.<font color="red"> * </font></label>
+			<div class="btn-group" data-toggle="buttons">
+				<label class="btn btn-default">
+					<input type="radio" name="alertInputIncidentLevel" value="high">High
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertInputIncidentLevel" value="medium">Medium
+				</label>
+				<label class="btn btn-default">
+					<input type="radio" name="alertInputIncidentLevel" value="low">Low
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="alertInputComments" class="col-sm-2 control-label">Comments</label>
+			<div class="col-sm-10">
+				<textarea class="form-control" rows="3"  maxlength="250" name="alertInputComments"></textarea>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-default" name="create_alert_form_submit" onclick="return formcheck();">Submit Incident</button>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "templates/operator_template.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+
+<div class="container" id="rateit-func-view-prioritypassengers" style="">
+	<legend><h2>Priority Passengers</h2></legend>
+	<table class="table table-hover" style="padding:20px">
+		<tr>
+			<th>User Name</th>
+            <th>Reason</th>
+			<th>Options</th>
+		</tr>
+		
+		<tr>
+			<td>Frozen</td>
+			<td>Helped</td>
+			<td><button type="button" id="showhistory">Show History <button type="button" id="removefromthelist">Remove From the List</td>
+		</tr>
+	</table>
+</div>
+	
+{% endblock %}
+
+	

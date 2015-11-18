@@ -1,0 +1,46 @@
+# Unit test for calculator division function
+
+import unittest
+from calculator import divide
+
+class TestDivision(unittest.TestCase):
+
+    # Testing positive integers
+    def testPositiveInteger(self):
+        self.assertEquals(divide(6,2), 3)
+        
+    # Testing negative integers
+    def testNegativeInteger(self):
+        self.assertEquals(divide(-6, 2), -3)
+        self.assertEquals(divide(6, -2), -3)
+        self.assertEquals(divide(-6, -2), 3)
+        
+    # Testing divisions with zero 
+    def testZeroDivision(self):
+        self.assertEquals(divide(0, 2), 0)
+        self.assertRaises(ZeroDivisionError, divide, 2, 0)
+        self.assertRaises(ZeroDivisionError, divide, 0, 0)
+        self.assertEquals(divide(0.0, 2.0), 0.0)
+        self.assertRaises(ZeroDivisionError, divide, 2.0, 0.0)
+        self.assertRaises(ZeroDivisionError, divide, 0.0, 0.0)
+        
+    # Testing positive floats
+    def testPositiveFloats(self):
+        self.assertEquals(divide(10.2, 2.0), 5.1)
+        self.assertEquals(divide(10, 2.0), 5.0)
+        self.assertEquals(divide(10.0, 2), 5.0)
+        
+    # Testing negative floats
+    def testNegativeFloats(self):
+        self.assertEquals(divide(-10.2, 2.0), -5.1)
+        self.assertEquals(divide(-10, 2.0), -5.0)
+        self.assertEquals(divide(-10.0, 2), -5.0)
+       
+    # Testing wrong type of input
+    def testObject(self):
+        self.assertRaises(TypeError, divide, object(), 5)
+        self.assertRaises(TypeError, divide, 10, object())
+        self.assertRaises(TypeError, divide, object(), object())
+  
+if __name__ == "__main__":
+    unittest.main()

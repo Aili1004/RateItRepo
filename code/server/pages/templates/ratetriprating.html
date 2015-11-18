@@ -1,0 +1,64 @@
+{% extends "templates/operator_template.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<table class="table table-hover">
+	<tr>
+		<th>ID</th>
+		<td>{{ entity.key.id() }}</td>
+	</tr>
+	<tr>
+		<th>Route</th>
+		<td>{{ entity.route_id }}</td>
+	</tr>
+	<tr>
+		{% for feedback in entity.cleanliness %}
+		<th>Cleanliness {{ loop.index }}:</th>
+		<td>{{ feedback }}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for feedback in entity.comfort %}
+		<th>Comfort{{ loop.index }}:</th>
+		<td>{{ feedback }}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for feedback in entity.contribution_to_journey %}
+		<th>Contribution to Journey{{ loop.index }}:</th>
+		<td>{{ feedback }}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for feedback in entity.crowding %}
+		<th>Crowding{{ loop.index }}:</th>
+		<td>{{ feedback }}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for feedback in entity.customer_service %}
+		<th>Customer Service{{ loop.index }}:</th>
+		<td>{{ feedback }}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for feedback in entity.safety_and_security %}
+		<th>Safety and Security{{ loop.index }}:</th>
+		<td>{{ feedback }}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		{% for feedback in entity.timeliness %}
+		<th>Timeliness{{ loop.index }}:</th>
+		<td>{{ feedback }}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		<th>Comment</th>
+		<td>{{ entity.comment }}</td>
+	</tr>
+	<tr>
+		<th>Time of Rating</th>
+		<td>{{ entity.time_of_rating }}</td>
+	</tr>
+</div>
+{% endblock %}

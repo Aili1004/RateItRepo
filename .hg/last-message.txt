@@ -1,0 +1,1 @@
+Put all acceptance tests in the folder

@@ -1,0 +1,19 @@
+{% extends extends_template %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<legend><h2>View Ratings</h2></legend>
+<table class="table table-hover">
+	<tr>
+		<th>ID</th>
+		<th>Route</th>
+		<th>Time of Rating</th>
+	</tr>
+	{% for entity in entities %}
+	<tr>
+		<td><a href="/operator/viewratings/id={{ entity.key.id() }}">{{ entity.key.id() }}</a></td>
+		<td>{{ entity.route_id }}</td>
+		<td>{{ entity.time_of_rating }}</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock %}

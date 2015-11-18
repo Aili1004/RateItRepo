@@ -1,0 +1,99 @@
+{% extends extends_template %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<legend><h2>Add Questions (Rate Trip)</h2></legend>
+
+<<<<<<< local
+<form action="/operator/addquestions" method="POST" class="form-horizontal" role="form">
+=======
+
+
+<form action="/researcher/addquestions" method="POST" class="form-horizontal" role="form">
+>>>>>>> other
+	
+	<div class="form-group">
+		<label for="question" class="control-label">Question</label>
+		<input type="text" class="form-control" name="question">
+	</div>
+	
+	<div class="form-group">
+		<label for="name" class="control-label">Question Name</label>
+		<input type="text" class="form-control" name="name">
+	</div>
+	
+	<div class="form-group">
+		<label for="topic" class="control-label">Topic</label>
+		<select name="topic">
+			<option value="Cleanliness">Cleanliness</option>
+			<option value="Comfort">Comfort</option>
+			<option value="Contribution to Journey">Contribution to Journey</option>
+			<option value="Crowding">Crowding</option>
+			<option value="Customer Service">Customer Service</option>
+			<option value="Safety and Security">Safety and Security</option>
+			<option value="Timeliness">Timeliness</option>
+		</select>
+	</div>
+	
+	<div class="form-group">
+		<label for="response type" class="control-label">Response Type</label>
+		<select name="response type">
+			<option value="Multiple Choice">Multiple Choice</option>
+			<option value="5 Point Slider">5 Point Slider</option>
+		</select>
+	</div>
+	
+	<p>Response Options:</p>
+	<div id="responses1" class="form-group">
+		<input class="form-control" name="option" type="text" placeholder="Option 1">
+	</div>
+	
+	<div>
+		<input type="button" id="btnAdd" value="Add Option" />
+		<input type="button" id="btnDel" value="Remove Option" />
+	</div>
+	
+	<div class="form-group">
+		<div class="controls">
+			<button type="submit" class="btn btn-default" name="rate_trip_form_submit">Submit</button>
+		</div>
+	</div>
+</form>
+
+
+<script>
+$('#btnAdd').click(function() {
+    var num = $("[id^='responses']").length;    // how many "duplicatable" input fields we currently have
+    var newNum = new Number(num + 1);        // the numeric ID of the new input field being added
+
+    // create the new element via clone(), and manipulate it's ID using newNum value
+    var newElem = $('#responses' + num).clone().attr('id', 'responses' + newNum);
+
+    // manipulate the name/id values of the input inside the new element
+    newElem.children(':first').attr('name', 'option');
+	newElem.children(':first').attr('placeholder', 'Option' + newNum);
+	newElem.find("input[type='text']").val("");
+
+    // insert the new element after the last "duplicatable" input field
+    $('#responses' + num).after(newElem);
+
+    // enable the "remove" button
+	$('#btnDel').removeAttr('disabled');
+
+    // temp rule: you can only add 5 names
+    if (newNum == 5)
+        $('#btnAdd').attr('disabled','disabled');
+});
+
+$('#btnDel').click(function() {
+    var num = $("[id^='responses']").length;    // how many "duplicatable" input fields we currently have
+    $('#responses' + num).remove();        // remove the last element
+
+    // enable the "add" button
+    $('#btnAdd').removeAttr('disabled');
+
+    // if only one element remains, disable the "remove" button
+    if (num-1 == 1)
+        $('#btnDel').attr('disabled','disabled');
+});
+</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+'''
+Created on 24 Aug 2014
+
+@author: Kevin
+'''
+def isfloat(x):
+    try:
+        x = float(x)
+    except ValueError:
+        return False
+    else:
+        return True
+
+def isint(x):
+    try:
+        x = int(x)
+    except ValueError:
+        return False
+    else:
+        return True
+
+def add(a, b):
+    if not isint(a) or not isint(b):
+        return None 
+    else:
+        return a + b
+import unittest
+
+
+class Test(unittest.TestCase):
+
+
+    def testIntegerInput(self):
+        self.assertEqual(add(2,5), 7)
+        self.assertEqual(add(1,-5), -4)
+        self.assertEqual(add(200,0), 200)
+        self.assertEqual(add(-2,-2), -4)
+
+    def testDecimalInput(self):
+        self.assertEqual(add(2.3,5.5), 7.8)
+        self.assertEqual(add(1.3,5), 6.3)
+        self.assertEqual(add(-6.5,-9.3), -15.8)
+        self.assertEqual(add(-0,-0.1), -0.1)
+
+    def testEmptyInput(self):
+        self.assertEqual(add("", 3), None)
+        self.assertEqual(add(3, ""), None)
+        self.assertEqual(add("", ""), None)
+
+    def testBadInput(self):
+        self.assertEqual(add("hi", 3), None)
+        self.assertEqual(add(3, "k"), None)
+        self.assertEqual(add("wassup", "asdsd"), None)
+        self.assertEqual(add("was234sup", "as565dsd"), None)
+
+        
+        
+if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.testIntegerInput']
+    unittest.main()

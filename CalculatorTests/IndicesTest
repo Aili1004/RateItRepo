@@ -1,0 +1,104 @@
+import unittest
+
+
+""" def powerOf(x, y) -- return x to the power of y."""
+class Test(unittest.TestCase):
+
+    """ The following is testing empty input e.g. either x or y, or 
+    both x and y are empty, the result should not be defined."""
+    def testEmptyInput(self):
+        self.assertEquals(powerOf("", 2), None)
+        self.assertEquals(powerOf(10, ""), None)
+        self.assertEquals(powerOf("", ""), None)
+
+
+    """ The following is testing bad input e.g. input strings instead of numbers, 
+        the result should be not defined. """
+    def testBadInput(self):
+        self.assertEquals(powerOf("hello", 2), None)
+        self.assertEquals(powerOf(10, "a"), None)
+        self.assertEquals(powerOf("hello", "bye"), None)
+
+         
+    """ The following is testing integers only: both a and b are integers
+    1st -- test 2 to the power of 3 is 8
+    2nd -- test 10 to the power of -2 is 0.01
+    3rd -- test -10 to the power of 2 is 100
+    4th -- test -10 to the power of -2 is 0.01. """
+    def testIntegersOnly(self):
+        self.assertEqual(powerOf(2, 3), 8)
+        self.assertEquals(powerOf(10, -2), 0.01)
+        self.assertEquals(powerOf(-10, 2), 100)
+        self.assertEquals(powerOf(-10, -2), 0.01)
+         
+ 
+    """ The following is testing the cases of 0s. """
+    def testZero(self):  
+              
+        """ test a positive number (including integer and float) to the power of 0 is 1. """
+        self.assertEquals(powerOf(10, 0), 1) 
+        self.assertEquals(powerOf(3234.23432, 0), 1)
+         
+        """ testing a negative number (including integer and float) to the power of 0 is 1. """
+        self.assertEquals(powerOf(-8, 0), 1)
+        self.assertEquals(powerOf(-33.234, 0), 1)
+         
+        """ testing 0 to the power of a positive number (including integer and float) is 0. """ 
+        self.assertEqual(powerOf(0, 123), 0) 
+        self.assertEquals(powerOf(0, 99.999), 0)
+         
+        """ testing 0 to the power of 0 is 1. """
+        self.assertEquals(powerOf(0, 0), 1) 
+         
+        """ testing 0 to the power of a negative number (including integer and float) is not defined, 
+        as a number cannot be divided by 0. """
+        self.assertEquals(powerOf(0, -3), None) 
+        self.assertEquals(powerOf(0, -2.45), None)
+         
+         
+    """ The following is testing float numbers: 
+    either a or b, or both a and b are floats. """
+    def testFloat(self):         
+         
+        """ testing a positive integer to the power of (positive and negative) float. """
+        self.assertEquals(powerOf(100, 0.5), 10) 
+        self.assertEquals(powerOf(4, -0.5), 0.5) 
+        self.assertEquals(round(powerOf(2, 1.5), 3), 2.828) 
+        self.assertEquals(round(powerOf(2, -1.5), 3), 0.354)
+         
+         
+        """ testing if a negative integer to the power of (positive and negative) float is not defined 
+        as a number cannot be divided by 0"""
+        self.assertEquals(powerOf(-100, 0.5), None)
+        self.assertEquals(powerOf(-100, -0.5), None)
+        self.assertEquals(powerOf(-2, 1.5), None)
+        self.assertEquals(powerOf(-2, -1.5), None)
+        
+          
+        """ testing a positive float to the power of (positive and negative) float"""
+        self.assertEquals(round(powerOf(1.5, -1.5), 3), 0.544)
+        self.assertEquals(round(powerOf(1.5, 1.5), 3), 1.837)
+        self.assertEquals(round(powerOf(4.8, 0.5), 3), 2.191)
+        self.assertEquals(round(powerOf(1.5, -0.5), 3), 0.816)
+          
+          
+        """ testing a negative float to the power of (positive and negative) float is not defined"""
+        self.assertEquals(powerOf(-4.8, 0.5), None)
+        self.assertEquals(powerOf(-1.5, -0.5), None)
+        self.assertEquals(powerOf(-2.5, 1.5), None)
+        self.assertEquals(powerOf(-1.5, -2.5), None)
+        
+    
+    """ The following is testing a negative number to the power of a (positive and negative) fraction
+    1st -- if the numerator of the fractions is an even number, result is defined
+    2nd -- if the numerator of the fractions is an odd number, result is not defined.
+    3rd -- if the denominator of the fractions is 0, result is not defined. """
+    def testFraction(self):
+        self.assertEquals(round(powerOf(-2, 2/3), 3), 1.587)
+        self.assertEquals(powerOf(-2, 3/5), None)
+        self.assertEquals(powerOf(-2, 5/0), None)
+        
+
+if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.testName']
+    unittest.main()

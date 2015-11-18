@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<!-- Title -->
+		<title>{% block title %} {% endblock%} - RateIT</title>
+		
+		<!-- Bootstrap -->
+		<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+		<!-- Loading Flat UI -->
+        <link href="/static/flatui/dist/css/flat-ui.css" rel="stylesheet">
+    
+		<!-- Stylesheet (make any changes in this file) -->
+		<link href="/static/css/style.css" rel="stylesheet">
+		
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
+		<!-- <script src="/static/rate-it-api.js"></script> -->
+
+
+    	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+
+		<!------------Including jQuery Date UI with CSS-------------->
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+		
+		<!-- Select2 -->
+		<link href="http://ivaynberg.github.com/select2/select2-3.3.2/select2.css" rel="stylesheet" type="text/css" />
+		<script src="http://ivaynberg.github.com/select2/select2-3.3.2/select2.js"></script>
+
+		<link href="/static/datepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">   
+
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="row demo-row">
+				<div class="col-xs-12">
+					<nav class="navbar navbar-inverse navbar-embossed" role="navigation" style="margin-bottom: 0px">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+								<span class="sr-only">Toggle navigation</span>
+							</button>
+							<a class="navbar-brand" href="/operator/">RateIT <i>Operator</i></a>
+						</div>
+						<div class="collapse navbar-collapse" id="navbar-collapse-01">
+							<ul class="nav navbar-nav navbar-left">
+								<li><a href="/operator/viewratings" id="rateit-button-operator">View Ratings</a></li>
+								<li><a href="/operator/viewalert" id="rateit-button-operator">View Alerts</a></li>
+								<li><a href="/operator/pushnewsfeed" id="rateit-button-operator">Push Newsfeed</a></li>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</nav><!-- /navbar -->
+				</div>
+			</div>
+        
+
+	{% block content %}
+	
+	{% endblock %}
+
+	<!--
+    <script>
+        /**
+         * Associate menu buttons with the corresponding view.
+         */
+        $("#rateit-button-rate-trip").click(function() {
+            rateit.client.set_current_view("#rateit-func-rate-trip");
+        });
+        $("#rateit-button-news-feed").click(function() {
+            // TODO(Angela): Fix this to point to the news feed view.
+            rateit.client.set_current_view("#rateit-func-sign-in");
+        });
+		$("#rateit-button-create-alert").click(function() {
+            rateit.client.set_current_view("#rateit-func-create_alert");
+        });
+        $("#rateit-button-choose-bus").click(function() {
+            rateit.client.set_current_view("#rateit-func-choose-bus");
+        });
+        $("#rateit-button-about-us").click(function() {
+            rateit.client.set_current_view("#rateit-about-us");
+        });
+        function init() {
+            rateit.server.init('//' + window.location.host + '/_ah/api');
+        }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+	-->
+		</div>
+	</body>
+</html>

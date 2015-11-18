@@ -1,0 +1,70 @@
+{% extends extends_template %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+
+<form action="/operator/viewalert/id={{ entity.key.id() }}" method="POST" id="onOffDisplayForm" role="form"></form>
+
+<table class="table table-hover">
+	<tr>
+		<th>ID</th>
+		<td>{{ entity.key.id() }}</th>
+	</tr>
+	
+	<tr>
+		<th>Route</th>
+		<td>{{ entity.route_id }}</th>
+	</tr>
+	
+	<tr>
+		<th>Bus Stop</th>
+		<td>{{ entity.incident_bus_stop }}</th>
+	</tr>
+	
+	<tr>
+		<th>Type</th>
+		<td>{{ entity.incident_type }}</th>
+	</tr>
+	
+	<tr>
+		<th>Level</th>
+		<td>{{ entity.incident_level }}</th>
+	</tr>
+	
+	<tr>
+		<th>Comment</th>
+		<td>{{ entity.comment }}</th>
+	</tr>
+	
+	<tr>
+		<th>Time</th>
+		<td>{{ entity.time_of_incident_happened }}</th>
+	</tr>
+	
+	<tr>
+		<th>Reporting Time</th>
+			<td>{{ entity.time_of_reporting_incident }}</th>
+	</tr>
+	
+	<!--<tr>
+		<th>Status</th>
+		<td>
+			<div class="onoffswitch">
+				<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id={{ entity.key.id() }} checked>
+				<label class="onoffswitch-label" for={{ entity.key.id() }}>
+					<span class="onoffswitch-inner"></span>
+					<span class="onoffswitch-switch"></span>
+				</label>
+			</div>
+		</td>
+	</tr>-->
+</table>
+
+<!--<div class="form-group">
+	<div class="controls">
+		<button type="submit" class="btn btn-default" name="create_alert_form_submit" form="onOffDisplayForm">Submit</button>
+	</div>
+</div>-->
+
+{% endblock %}
+
+	

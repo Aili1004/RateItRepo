@@ -1,0 +1,49 @@
+{% extends extends_template %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+
+<script src="/static/bootstrap/js/sorttable.js"></script>
+
+<div class="container" id="rateit-func-view-alert" style="">
+	<legend><h2>View Alerts</h2></legend>
+
+	<form action="submitchanges" method="POST" id="submit_changes" class="form-horizontal" role="form">
+		<table class="table sortable" style="padding:20px">
+			<tr>
+				<th>Route</th>
+				<th style="display:none;">Bus Stop</th>
+				<th>Type</th>
+				<th>Level</th>
+				<th style="display:none;">Comment</th>
+				<th style="display:none;">Time</th>
+				<th>Reporting Time</th>
+				<th>Status</th>
+			</tr>
+			
+			{% for entity in entities %}
+				<tr>
+					<td><a href="/operator/viewalert/id={{ entity.key.id() }}">{{ entity.route_id }}</a></td>
+					<td style="display:none;">{{ entity.incident_bus_stop }}</td>
+					<td>{{ entity.incident_type }}</td>
+					<td>{{ entity.incident_level }}</td>
+					<td style="display:none;">{{ entity.comment }}</td>
+					<td style="display:none;">{{ entity.time_of_incident_happened }}</td>
+					<td>{{ entity.time_of_reporting_incident }}</td>
+					<!--<td>{{ entity.open_close }}</td>-->
+					<td>
+						<div class="onoffswitch">
+							<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id={{ entity.key.id() }} checked>
+							<label class="onoffswitch-label" for={{ entity.key.id() }}>
+								<span class="onoffswitch-inner"></span>
+								<span class="onoffswitch-switch"></span>
+							</label>
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</form>
+</div>
+{% endblock %}
+
+	

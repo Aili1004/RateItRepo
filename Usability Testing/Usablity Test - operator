@@ -1,0 +1,38 @@
+Usability Testing for Operator Interface
+
+Rate it operator users must be able to accomplish the following main goals:
+1.	Push newsfeed to passengers at a specific time for a specific duration.
+2.	Change newsfeed content.
+3.	View latest alerts.
+4.	View alert details which the statuses are still open.
+5.	Know how many passengers have been rating trips lately.
+6.	View rating details for a specific route at a specific time.
+
+User goal: Push newsfeed to passengers at a specific time for a specific duration.
+Task1: Push a priority newsfeed with title “Track work at Central” right now.
+Task2: Create a non-priority newsfeed with type “Regional” and title “Bus 888 is out of order” and do not push it until 26th October 2014. 
+Task3: Push a non-priority “Route” newsfeed right now and let it appear for 1 day only.
+
+User goal: Change newsfeed content.
+Task1: Change the type to “Route” for newsfeed “Traffic at QVB near the ABC shop”.
+
+User goal: View latest alerts.
+Task1: How many alerts were reported since 01/10/2014?
+Task2: When was the last alert reported? 
+Task3: Among different incident types, which type has been alerted the most?
+Task4: Among different route ids, which route has been alerted the most?
+
+User goal: View alert details which the statuses are still open.
+Task1: Open a “sick_passenger” alert which has not been reviewed yet.
+Task2: Find out what the bus stops are for the open alert with route “16-194-sj2-1:0:St Ives:Sydney” which reported before 20th October 2014.
+
+User goal: Know how many passengers have been rating trips lately. 
+Task1: Count how many passengers have rated trips since 01/10/2014.
+Task2: What are the Route ids that have been rated after 24th October 2014?
+
+User goal: View rating details for a specific route at a specific time.
+Task1: Open rating details that were rated after 20th October 2014 for route “195”.
+Task2: What are the rating results for route “278” before 18th October 2014?
+
+
+

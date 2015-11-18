@@ -1,0 +1,50 @@
+application: rateit-bus
+version: beta2
+runtime: python27
+api_version: 1
+threadsafe: true
+
+builtins:
+- deferred: on
+- appstats: on
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+- name: jinja2
+  version: "2.6"
+- name: endpoints
+  version: 1.0
+
+handlers:
+- url: /_ah/spi/.*
+  script: services.application
+
+- url: /(.*\.(gif|png|jpg|ico))$
+  static_files: static/images/\1
+  upload: static/.*\.(gif|png|jpg|ico)$
+
+- url: /static/(.*)$
+  static_files: static/\1
+  upload: static/.*$
+
+- url: /operator(|/.*)
+  script: operator_main.operator
+  login: required
+
+- url: /researcher(|/.*)
+  script: operator_main.researcher
+  login: required
+
+- url: /testing(|/.*)
+  script: testing_main.app
+
+- url: /
+  script: main.app
+  
+- url: /.*
+  script: main.app
+  login: required
+  
+
+  

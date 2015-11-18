@@ -1,0 +1,193 @@
+{% extends extends_template %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+
+<div class="container" id="rateit-func-push-newsfeed" style="">
+	<legend><h2>Push Newsfeed</h2></legend>
+			
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="active"><a href="#push" role="tab" data-toggle="tab">Push</a></li>
+		<li><a href="#newsfeed" role="tab" data-toggle="tab">Edit Newsfeed</a></li>
+	</ul>
+	
+	<div class="tab-content">
+		<div class="tab-pane active" id="push"><p>
+		<form action="{{ submit_path }}" method="POST" id="create_newsfeed_form" class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="alertTitle" class="col-sm-2 control-label">Title</label>
+				<div class="col-sm-3">
+					<input type="text" name="alertTitle" class="form-control">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="alertMessage" class="col-sm-2 control-label">Alert Message</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" rows="3"  maxlength="250" name="alertMessage"></textarea>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="alertType" class="col-sm-2 control-label">Alert type</label>
+				<div class="btn-group col-sm-10" data-toggle="buttons">
+				  <label class="btn btn-default">
+				  <input type="radio" name="alertType" value="Bus">Bus
+				  </label>
+				  <label class="btn btn-default">
+				  <input type="radio" name="alertType" value="Route">Route
+				  </label>
+				  <label class="btn btn-default">
+				  <input type="radio" name="alertType" value="Regional">Regional
+				  </label>
+				</div>
+			</div>
+		  
+			<div class="form-group">
+				<label for="alertPriority" class="col-sm-2 control-label">Priority</label>
+				<div class="btn-group col-sm-10" data-toggle="buttons">
+				  <label class="btn btn-default">
+				  <input type="checkbox" name="alertPriority" value="True">Yes
+				  </label>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="alertStartTime" class="col-sm-2 control-label">Start Time</label>
+				<div class='col-sm-3'>
+					<div class='input-group date' id='datetimepicker1'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+					<script type="text/javascript">
+						$(function () {
+							$('#datetimepicker1').datetimepicker();
+						});
+					</script>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="alertDuration" class="col-sm-2 control-label">Duration</label>
+				<div class='col-sm-3'>
+					<div class='input-group date' id='datetimepicker2'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+					<script type="text/javascript">
+						$(function () {
+							$('#datetimepicker2').datetimepicker();
+						});
+					</script>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default" name="create_newsfeed_form_submit" value="1">Submit Alert</button>
+				</div>
+			</div>
+		</form>
+		</div>
+	
+	<div class="tab-pane" id="newsfeed"><p>
+    <form action="pushnewsfeed" method="POST" id="edit_newsfeed" class="form-horizontal" role="form">
+        <div class="form-group">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-default" name="submit_changes" value="1">Submit Changes</button>
+            </div>
+        </div>
+		<table class="table table-hover" style="padding:20px; border-collapse: collapse;">
+			{% for a in entities %}
+				{% if a.priority %}
+				<tr class="warning" data-toggle="collapse" data-target="#{{ a.key.id() }}" class="accordion-toggle">
+					<td width="90%">{{ a.title }}</td>
+				{% elif  not a.priority %}
+				<tr data-toggle="collapse" data-target="#{{ a.key.id() }}" class="accordion-toggle">
+					<td width="90%">{{ a.title }}</td>
+				{% endif %}
+
+					<td width="10%" style="text-align:right;">&#9660;</td>
+					
+					<tr >
+						<td colspan="10" class="hiddenRow" style="padding:0px; border-bottom: none;">
+							<div id="{{ a.key.id() }}" class="accordion-body collapse">
+								<div>
+									<div class="form-group" style="margin-top:10px;">
+										<label for="{{ a.key.id() }}" class="col-sm-2 control-label">Type</label>
+										<div class="col-sm-3">
+											<input type="text" name="{{ a.key.id() }}" class="form-control" value="{{ a.type }}">
+										</div>
+									</div>
+									
+									<div class="form-group">									
+										<label for="{{ a.key.id() }}" class="col-sm-2 control-label">Time</label>
+										<div class="col-sm-3">
+											<input type="text" name="{{ a.key.id() }}" class="form-control" value="testing">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="{{ a.key.id() }}" class="col-sm-2 control-label">Surveys</label>
+										<div class="col-sm-3">
+											<input type="text" name="{{ a.key.id() }}" class="form-control" value="None">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="{{ a.key.id() }}" class="col-sm-2 control-label">Message</label>
+										<div class="col-sm-3">
+											<input type="text" name="{{ a.key.id() }}" class="form-control" value="{{ a.message }}">
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+			{% endfor %}
+		</table>
+		<!--
+		<table class="table table-hover" style="padding:20px">
+			<tr><td><b>Title</b></td>
+			<td><b>Message</b></td>
+			<td><b>Type</b></td>
+			<td><b>Commands</b></td></tr>
+
+			{% for a in entities %}
+				{% if a.priority %}
+				<tr class="warning">
+				{% elif  not a.priority %}
+				<tr>
+				{% endif %}
+				<td>{{ a.title }}</td>
+				<td>{{ a.message }}</td>
+				<td>{{ a.type }}</td>
+				<td>
+				<div class="form-group">
+					<div class="btn-group" data-toggle="buttons">
+					  <label class="btn btn-default">
+					  <input type="radio" name="{{ a.key.integer_id() }}" value="1">Priority+
+					  </label>
+					  <label class="btn btn-default">
+					  <input type="radio" name="{{ a.key.integer_id() }}" value="2">Priority-
+					  </label>
+					  <label class="btn btn-default">
+					  <input type="radio" name="{{ a.key.integer_id() }}" value="3">Remove
+					  </label>
+					</div>
+				</div>
+				</td></tr>
+
+			{% endfor %}
+		</table>
+		-->
+    </form>
+    </div>
+	</div>
+</div>
+
+{% endblock %}
